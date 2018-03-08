@@ -4,7 +4,7 @@ from pylab import *
 import netCDF4
 import sys
 import matplotlib.pyplot as plt
-sys.path.append('/home/tintino/Documents/snowschool_lautaret_2018/SSWS_notebook_clean/snowtools_git')
+sys.path.append('/home/tintino/Documents/snowschool_lautaret_2018/github/SSWS_notebook_clean/snowtools_git')
 #os.environ["PYTHONPATH"]="PYTHONPATH:/home/tintino/Documents/snowschool_lautaret_2018/SSWS_notebook_clean/snowtools_git/"
 from plots.proReader import ProReader
 
@@ -131,12 +131,43 @@ pro_b92.plot(axes[4], "age", b=begin,e=end)
 ## possible variables to plot : tel, ram, age, swe, temp, ...
 plt.show()
 
+
+
+
+# Combine weather and crocus snow evolution
+fig, axes = plt.subplots(4, 1, sharex=False, sharey=False, figsize=(12,12))
+pro_f06.plot(axes[0], "grain", b=begin,e=end, legend=False)
+pro_f06.plot(axes[1], "temp", b=begin,e=end, cbar_on=False)
+
+fig, axes = plt.subplots(1, 1, sharex=False, sharey=False, figsize=(12,12))
+pro_f06.plot(axes, "age", b=begin,e=end, cbar_on=False)
+
+
+
+axes[3].plot(df_winter.index, df_winter.Tair, color='k')
+axes[3].grid()
+#axes[0].axhline(0, color='k')
+axes[3].set_ylabel('Air temp. [degC]')
+axes[3].fill_between(df_winter.index, df_winter.To,
+                   df_winter.Tair, where=df_winter.Tair>df_winter.To, color='tomato')
+axes[3].fill_between(df_winter.index, df_winter.To,
+                   df_winter.Tair, where=df_winter.Tair<df_winter.To, color='lightblue')
+plt.colorbar(ax=axes[3])
+plt.show()
+
+
+
 #WSN_T_ISBA = SWE (time, Number_of_Tile, Number-of_points)
 #DSN_T_ISBA = Snow depth (time, Number_of_Tile, Number-of_points)
 
 
 #print crocus.variables
 #print crocus.variables['aspect']
+
+
+
+
+
 
 
 # extract snow surface temperature

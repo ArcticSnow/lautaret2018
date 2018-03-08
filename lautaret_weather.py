@@ -13,7 +13,7 @@ import netCDF4
 path = '/home/tintino/Documents/snowschool_lautaret_2018/Crocus_files/forcing/'
 name = 'FORCING_2017080106_2018021406.nc'
 
-id_sim = 1
+id_sim = 16
 
 ### display variable names
 forcing = netCDF4.Dataset(path+name) # classic opening of netCDF file
