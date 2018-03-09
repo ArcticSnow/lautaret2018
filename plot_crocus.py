@@ -44,14 +44,22 @@ def print_sim_param(input_file, poi=19):
     return information_poi
 
 
-for i in range(0, 30):
+for i in range(0, 45):
+    print 'POI: ' + str(i)
     print_sim_param(name_f06, i)
 
 print_sim_param(name_f06, 16)
 
-pro_f06=ProReader(name_f06, point=16) # add point argument if several points (,point=i)
-pro_c13=ProReader(name_c13, point=16)
-pro_b92=ProReader(name_b92, point=16)
+# point of interest to look at:
+#       massif 16: 18,19
+#       massif 15: 0,1
+#
+
+
+poi = 19
+pro_f06=ProReader(name_f06, point=poi) # add point argument if several points (,point=i)
+pro_c13=ProReader(name_c13, point=poi)
+pro_b92=ProReader(name_b92, point=poi)
 
 #=============================================================================
 # Comparing the three simulation for a given point of interest
@@ -74,7 +82,7 @@ axes[1].set_xlim(260,274)
 axes[2].set_xlim(0,1000)
 axes[0].set_ylabel('Depth (m)')
 axes[0].set_title('Simulation f06')
-plt.title(print_sim_param(name_f06, 16),loc='right')
+plt.title(print_sim_param(name_f06, poi),loc='right')
 plt.show()
 
 

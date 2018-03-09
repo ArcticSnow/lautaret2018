@@ -9,4 +9,6 @@ To plot Crocus and its forcing data use the scripts:
 Todo:
     - plot weather and snow evo on subplots with the same x-ais extent
     - plot snowpit simulated by crocus next to observation (cannot load caaml file at the moment). maybe simply do it in illustrator
+    - Compare density from SWE tube, Micro pen, and pit. Have a boxplot for all three
     - 
+    
