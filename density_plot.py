@@ -5,11 +5,27 @@ from __future__ import division
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import sys, os
+import sys
+import matplotlib.pyplot as plt
+sys.path.append('/home/tintino/Documents/snowschool_lautaret_2018/github/SSWS_notebook_clean/snowtools_git')
+#os.environ["PYTHONPATH"]="PYTHONPATH:/home/tintino/Documents/snowschool_lautaret_2018/SSWS_notebook_clean/snowtools_git/"
+from plots.proReader import ProReader
+from utils.obsReader import ObsReader
 
 
 #===============================================
-# include functions here
+# density from Crocus:
+id_sim = 19
+name_f06 = '/home/tintino/Documents/snowschool_lautaret_2018/Crocus_files/PRO_2017080106_2018021706_b92.nc'
+pro_f06=ProReader(name_f06, point=id_sim)
+
+fig, axes = plt.subplots(1, 5, sharex=False, sharey=True, figsize=(20, 6))
+depth2, rho = pro_f06.plot_date(axes[0], "rho", date='2018021518')
+
+print rho.mean()
+print depth2.max()
+
+
 
 dens_df = pd.read_csv('all_data/snow_distrib/depth_density_all.csv', na_values='na')
 

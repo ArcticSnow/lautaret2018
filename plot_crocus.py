@@ -140,11 +140,9 @@ pro_b92.plot(axes[4], "age", b=begin,e=end)
 plt.show()
 
 
-
-
 # Combine weather and crocus snow evolution
 fig, axes = plt.subplots(4, 1, sharex=False, sharey=False, figsize=(12,12))
-pro_f06.plot(axes[0], "grain", b=begin,e=end, legend=False)
+pro_f06.plot(axes[0], "grain", b=begin,e=end, legend=False, cbar_on=False)
 pro_f06.plot(axes[1], "temp", b=begin,e=end, cbar_on=False)
 
 fig, axes = plt.subplots(1, 1, sharex=False, sharey=False, figsize=(12,12))
@@ -162,6 +160,11 @@ axes[3].fill_between(df_winter.index, df_winter.To,
                    df_winter.Tair, where=df_winter.Tair<df_winter.To, color='lightblue')
 plt.colorbar(ax=axes[3])
 plt.show()
+
+
+
+
+
 
 
 

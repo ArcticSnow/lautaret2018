@@ -14,12 +14,12 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-
+id_sim = 0
 
 #========================================================
 # 1. open the three simulations at col du lautaret:
 name_f06 = '/home/tintino/Documents/snowschool_lautaret_2018/Crocus_files/PRO_2017080106_2018021706_f06.nc'
-pro_f06=ProReader(name_f06, point=16) # add point argument if several points (,point=i)
+pro_f06=ProReader(name_f06, point=id_sim) # add point argument if several points (,point=i)
 
 begin="2017110100"
 end="2018021700"
@@ -31,7 +31,7 @@ obs = ObsReader('/home/tintino/Documents/snowschool_lautaret_2018/github/2018021
 path = '/home/tintino/Documents/snowschool_lautaret_2018/Crocus_files/forcing/'
 name = 'FORCING_2017080106_2018021406.nc'
 
-id_sim = 16
+
 
 ### display variable names
 forcing = netCDF4.Dataset(path+name) # classic opening of netCDF file
@@ -61,20 +61,32 @@ df_winter = df_winter.loc[df_winter.index <= pd.to_datetime('2018-02-17')]
 
 #========================================================
 # Combine weather and crocus snow evolution
-fig, axes = plt.subplots(4, 1, sharex=False, sharey=False, figsize=(12,12))
+fig, axes = plt.subplots(5, 1, sharex=False, sharey=False, figsize=(12,12))
 pro_f06.plot(axes[0], "grain", b=begin,e=end, legend=False, cbar_on=False)
-pro_f06.plot(axes[1], "temp", b=begin,e=end, cbar_on=False)
-pro_f06.plot(axes[2], "age", b=begin,e=end, cbar_on=False)
+pro_f06.plot(axes[3], "temp", b=begin,e=end, cbar_on=False)
+#pro_f06.plot(axes[2], "age", b=begin,e=end, cbar_on=False)
 
 
-
-axes[3].plot(df_winter.index, df_winter.Tair, color='k')
-axes[3].grid()
+axes[1].plot(df_winter.index, df_winter.rain, color='k')
+axes[1].grid()
 #axes[0].axhline(0, color='k')
-axes[3].set_ylabel('Air temp. [degC]')
-axes[3].fill_between(df_winter.index, df_winter.To,
+axes[1].set_ylabel('Rain precip. [mm]')
+axes[1].set_xlim(['2017-11-01','2018-02-17'])
+
+axes[2].plot(df_winter.index, df_winter.snow, color='k')
+axes[2].grid()
+#axes[0].axhline(0, color='k')
+axes[2].set_ylabel('Snow precip. [mm]')
+axes[2].set_xlim(['2017-11-01','2018-02-17'])
+
+
+axes[4].plot(df_winter.index, df_winter.Tair, color='k')
+axes[4].grid()
+#axes[0].axhline(0, color='k')
+axes[4].set_ylabel('Air temp. [degC]')
+axes[4].set_xlim(['2017-11-01','2018-02-17'])
+axes[4].fill_between(df_winter.index, df_winter.To,
                    df_winter.Tair, where=df_winter.Tair>df_winter.To, color='tomato')
-axes[3].fill_between(df_winter.index, df_winter.To,
+axes[4].fill_between(df_winter.index, df_winter.To,
                    df_winter.Tair, where=df_winter.Tair<df_winter.To, color='lightblue')
-plt.colorbar(ax=axes[3])
 plt.show()
